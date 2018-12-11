@@ -36,6 +36,10 @@ SensorMirrorExt.prototype.init = function (config) {
     }
   }
 
+  if (self.parentDevice.get('metrics:scaleTitle')) {
+    overlay.metrics.scaleTitle = self.parentDevice.get('metrics:scaleTitle')
+  }
+
   self.vDev = this.controller.devices.create({
     deviceId: 'SensorMirrorExt_' + this.id,
     defaults: defaults,
