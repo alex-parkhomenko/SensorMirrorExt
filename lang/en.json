@@ -1,0 +1,12 @@
+{
+	"m_title": "Sensor Mirror Extended",
+	"m_descr": "Creates a mirror virtual devices for any sensor, giving ability to send z-wave commands on value change",
+	"rl_options": "Dimmable",
+	"l_device": "Device to mirror",
+	"rl_invert": "Invert action",
+	"l_scenesOn": "List of scenes to activate on On action",
+	"l_scenesOff": "List of scenes to activate on Off action",
+	"noAssociation": "The group value does not depend on the values of the devices in the group",
+	"oneOff-widgetOff": "The group value corresponds to the smallest value of the devices in the group",
+	"oneOn-widgetOn": "The group value corresponds to the highest value of the devices in the group"
+}

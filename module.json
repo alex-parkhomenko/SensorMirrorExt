@@ -1,0 +1,43 @@
+{
+	"singleton": false,
+	"dependencies": [],
+	"category": "device_enhancements",
+	"author": "Z-Wave.Me",
+	"homepage": "https://github.com/alex-parkhomenko/SensorMirrorExt",
+	"icon": "icon.png",
+	"moduleName": "SensorMirrorExt",
+	"version": "0.1.0",
+	"maturity": "alfa",
+	"repository": {
+		"type": "git",
+		"source": "https://github.com/alex-parkhomenko/SensorMirrorExt"
+	},
+	"defaults": {
+		"title": "__m_title__",
+		"description": "__m_descr__",
+		"device": ""
+	},
+	"schema": {
+		"type": "object",
+		"properties": {
+			"device": {
+				"type": "string",
+				"field": "enum",
+				"datasource": "namespaces",
+				"enum": "namespaces:devices_sensorMultilevel:deviceId",
+				"required": true
+			}
+		},
+		"required": false
+	},
+	"options": {
+		"fields": {
+			"device": {
+				"label": "__l_device__",
+				"datasource": "namespaces",
+				"field": "optionLabels",
+				"optionLabels": "namespaces:devices_sensorMultilevel:deviceName"
+			}
+		}
+	}
+}
