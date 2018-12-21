@@ -6,8 +6,8 @@
 	"homepage": "https://github.com/alex-parkhomenko/SensorMirrorExt",
 	"icon": "icon.png",
 	"moduleName": "SensorMirrorExt",
-	"version": "0.1.0",
-	"maturity": "alfa",
+	"version": "0.3.0",
+	"maturity": "beta",
 	"repository": {
 		"type": "git",
 		"source": "https://github.com/alex-parkhomenko/SensorMirrorExt"
@@ -26,6 +26,16 @@
 				"datasource": "namespaces",
 				"enum": "namespaces:devices_sensorMultilevel:deviceId",
 				"required": true
+			},
+			"targets": {
+				"type": "array",
+				"items": {
+					"type": "string",
+					"field": "enum",
+					"datasource": "namespaces",
+					"enum": "namespaces:devices_thermostat:deviceId",
+					"required": true					
+				}
 			}
 		},
 		"required": false
@@ -37,6 +47,16 @@
 				"datasource": "namespaces",
 				"field": "optionLabels",
 				"optionLabels": "namespaces:devices_sensorMultilevel:deviceName"
+			},
+			"targets": {
+				"fields": {
+					"item": {
+						"label": "__l_report_device__",
+						"datasource": "namespaces",
+						"field": "optionLabels",
+						"optionLabels": "namespaces:devices_thermostat:deviceName"
+					}
+				}
 			}
 		}
 	}

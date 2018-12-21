@@ -1,5 +1,6 @@
 {
 	"m_title": "Sensor Mirror Extended",
-	"m_descr": "Creates a mirror virtual devices for any sensor, giving ability to send z-wave commands on value change",
-	"l_device": "Device to mirror"
+	"m_descr": "Creates a mirror virtual devices for any sensor, then you can choose any number of thermostats that will recieve unsolicited multisensor reports from controller, when the value changes. Checked to work with EUROTRONIC Spirit Z",
+	"l_device": "Device to mirror",
+	"l_report_device": "Devices to send report to:"
 }

@@ -1,6 +1,6 @@
 // Sensor Mirror Ext
 
-/* global _, inherits, AutomationModule, _module:true */
+/* global _, inherits, AutomationModule, _module:true, zway */
 /* exported _module */
 
 function SensorMirrorExt (id, controller) {
@@ -16,8 +16,11 @@ SensorMirrorExt.prototype.init = function (config) {
   SensorMirrorExt.super_.prototype.init.call(this, config)
   var self = this
 
-  self.parentDevice = self.controller.devices.get(this.config.device)
+  self.parentDevice = self.controller.devices.get(self.config.device)
   console.log('[SME] Mirroring device', self.parentDevice.get('metrics:title'))
+
+  self.targets = _.map(self.config.targets, function (devId) { return dev2node(devId) })
+  console.log('[SME] Target devices is', JSON.stringify(self.targets))
 
   var icon = self.parentDevice.get('metrics:icon')
   var level = self.parentDevice.get('metrics:level')
@@ -52,8 +55,25 @@ SensorMirrorExt.prototype.init = function (config) {
 }
 
 SensorMirrorExt.prototype.doUpdate = function (parentDevice) {
+  var self = this
   if (!_.isUndefined(parentDevice) && !_.isUndefined(parentDevice.get)) {
     this.vDev.set('metrics:level', parentDevice.get('metrics:level'))
+
+    // Send uncolicited reports
+    // TODO: Choose devices in UI
+    var tempInt = Math.round(parseFloat(parentDevice.get('metrics:level')) * 100)
+    var byteH = (tempInt & 0xff00) >> 8
+    var byteL = tempInt & 0x00ff
+
+    console.log('[SME] got value', tempInt, ':', d2h(byteH), d2h(byteL))
+    _.each(self.targets, function (nodeId) {
+      var nodeInt = parseInt(nodeId)
+      console.log('[SME] sending to', nodeInt, '0x31', '0x05', '0x01', '0x42', d2h(byteH), d2h(byteL))
+      zway.SendData(nodeInt, [0x31, 0x05, 0x01, 0x42, byteH, byteL])
+    })
+    // zway.SendData(46, [0x31, 0x05, 0x01, 0x42, byteH, byteL])
+    // zway.SendData(47, [0x31, 0x05, 0x01, 0x42, byteH, byteL])
+    // zway.SendData(53, [0x31, 0x05, 0x01, 0x42, byteH, byteL])
   }
 }
 
@@ -70,4 +90,11 @@ SensorMirrorExt.prototype.stop = function () {
   }
 
   SensorMirrorExt.super_.prototype.stop.call(this)
+}
+
+function d2h (byte) { return ('00' + (+byte).toString(16)).toUpperCase().slice(-2) }
+
+function dev2node (devId) {
+  var nodeRegex = /_zway_(\d+)-/g
+  return nodeRegex.exec(devId)[1]
 }
