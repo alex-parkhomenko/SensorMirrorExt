@@ -59,8 +59,7 @@ SensorMirrorExt.prototype.doUpdate = function (parentDevice) {
   if (!_.isUndefined(parentDevice) && !_.isUndefined(parentDevice.get)) {
     this.vDev.set('metrics:level', parentDevice.get('metrics:level'))
 
-    // Send uncolicited reports
-    // TODO: Choose devices in UI
+    // Send unsolicited reports
     var tempInt = Math.round(parseFloat(parentDevice.get('metrics:level')) * 100)
     var byteH = (tempInt & 0xff00) >> 8
     var byteL = tempInt & 0x00ff
@@ -71,9 +70,6 @@ SensorMirrorExt.prototype.doUpdate = function (parentDevice) {
       console.log('[SME] sending to', nodeInt, '0x31', '0x05', '0x01', '0x42', d2h(byteH), d2h(byteL))
       zway.SendData(nodeInt, [0x31, 0x05, 0x01, 0x42, byteH, byteL])
     })
-    // zway.SendData(46, [0x31, 0x05, 0x01, 0x42, byteH, byteL])
-    // zway.SendData(47, [0x31, 0x05, 0x01, 0x42, byteH, byteL])
-    // zway.SendData(53, [0x31, 0x05, 0x01, 0x42, byteH, byteL])
   }
 }
 

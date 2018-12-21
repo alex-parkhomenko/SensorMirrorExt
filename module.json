@@ -7,7 +7,7 @@
 	"icon": "icon.png",
 	"moduleName": "SensorMirrorExt",
 	"version": "0.3.0",
-	"maturity": "beta",
+	"maturity": "stable",
 	"repository": {
 		"type": "git",
 		"source": "https://github.com/alex-parkhomenko/SensorMirrorExt"
